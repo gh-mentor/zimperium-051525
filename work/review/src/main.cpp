@@ -49,10 +49,11 @@ int main()
             TODO:
             REPLACE the code below that generates the random sleep time with a call to a new function named 'uniform_distribution'.
             - Implement 'uniform_distribution' as a standalone function.
-            - The function should take two arguments:
+            - Arguments:
                 - 'min': a double specifying the minimum value of the distribution.
                 - 'max': a double specifying the maximum value of the distribution.
-            - The function should return a double representing a random value uniformly distributed between 'min' and 'max' (inclusive).
+            - Returns:
+                - a double representing a random value uniformly distributed between 'min' and 'max' (inclusive).
             - Use this function to generate the sleep time for each iteration.
             */
             std::random_device rd;
