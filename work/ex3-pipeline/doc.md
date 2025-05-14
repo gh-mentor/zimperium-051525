@@ -35,6 +35,7 @@ The application consists of:
    - To ensure tests are discovered and the build works, add the following as the first line of your main test file (e.g., `pipeline_test.cpp`):
      ```cpp
      #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+     #include "doctest.h"
      ```
    - Only one test file should contain this line; all other test files should simply include `doctest.h`.
    - This provides the test runner entry point and avoids linker errors or missing tests.
