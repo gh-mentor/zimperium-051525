@@ -3,7 +3,7 @@ This app simulates a workload using a lambda function and a packaged task.
 */
 
 /*
-Include header for input/output stream, future, chrono, thread, functional, and random
+Include headers for input/output stream, future, chrono, thread, functional, and random
 */
 #include "task.h"
 #include <iostream>
@@ -14,6 +14,14 @@ Include header for input/output stream, future, chrono, thread, functional, and 
 #include <random>
 #include <stdexcept>
 
+/*
+TODO: 
+Move the definition of the 'job' lambda function from inside the main() function to the global scope (outside of any function).
+- This allows 'job' to be accessed from anywhere in this source file, not just within main().
+- Ensure that 'job' remains a lambda function with the same signature and logic.
+- After moving, update main() to use the global 'job' lambda as before.
+*/
+
 int main()
 {
 
@@ -23,7 +31,7 @@ int main()
     - 'workload': an integer representing the number of steps in the workload
     Returns: void
     Details:
-    - Use a 'for loop' to to simulate a workload by iterating from the given workload value down to 1. 
+    - Use a 'for loop' to to simulate a workload by iterating from the given workload value down to 1.
     - For each iteration, it performs the following steps:
         1) Generates a random sleep time between 0.5 and 1.5 seconds.
         2) Pauses the execution for the generated sleep time.
@@ -38,7 +46,14 @@ int main()
         for (int i = workload; i > 0; --i)
         {
             /*
-            TODO: refactor the selected code into a new function 'uniform_distribution' that accepts 2 double args for the range of the distribution and returns a random double value within the range.
+            TODO:
+            REPLACE the code below that generates the random sleep time with a call to a new function named 'uniform_distribution'.
+            - Implement 'uniform_distribution' as a standalone function.
+            - The function should take two arguments:
+                - 'min': a double specifying the minimum value of the distribution.
+                - 'max': a double specifying the maximum value of the distribution.
+            - The function should return a double representing a random value uniformly distributed between 'min' and 'max' (inclusive).
+            - Use this function to generate the sleep time for each iteration.
             */
             std::random_device rd;
             std::mt19937 gen(rd());
