@@ -32,16 +32,27 @@ The application consists of:
      include_directories(tests)
      ```
    - Do not link `doctest` as a library since it is header-only. Simply include the header in your test files.
+   - To ensure tests are discovered and the build works, add the following as the first line of your main test file (e.g., `pipeline_test.cpp`):
+     ```cpp
+     #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+     ```
+   - Only one test file should contain this line; all other test files should simply include `doctest.h`.
+   - This provides the test runner entry point and avoids linker errors or missing tests.
 
 4. **Build and Test**:
-   - Use the following commands to build and test the project on Windows with GNU C++ 13.1.0:
+   - Use the following commands to build and test the project on Windows with GNU C++ (g++):
      ```bash
      mkdir build && cd build
-     cmake -G "MinGW Makefiles" -DCMAKE_CXX_COMPILER=g++-13 ..
+     cmake -G "MinGW Makefiles" -DCMAKE_CXX_COMPILER=g++ ..
      mingw32-make
      ctest
      ```
    - Ensure that the `PipelineLib` shared library is properly set up in `CMakeLists.txt` and linked to the test targets.
+   - If you see an error about `undefined reference to WinMain`, ensure your CMakeLists.txt contains:
+     ```cmake
+     set_target_properties(tests PROPERTIES WIN32_EXECUTABLE OFF)
+     ```
+     - This ensures the test executable is built as a console application, not a Windows GUI application.
 
 5. **Common Issues and Fixes**:
    - **Duplicate Definitions**: Ensure that `thread_safe_queue.hpp` is included only once in each translation unit to avoid duplicate definitions.
