@@ -14,7 +14,7 @@ The application consists of:
 ### Project Setup Instructions
 
 1. **Create the Project Structure**:
-   - `CMakeLists.txt`: Defines the build system and dependencies.
+   - `CMakeLists.txt`: Defines the build system and dependencies. Place this file in the root directory of the project.
    - `src/main.cpp`: Initializes the pipeline and manages threads.
    - `src/pipeline.hpp` and `src/pipeline.cpp`: Implements the overall pipeline structure and flow.
    - `src/generator.hpp` and `src/generator.cpp`: Implements the generator stage.
@@ -31,6 +31,23 @@ The application consists of:
      ```cmake
      include_directories(tests)
      ```
+   - Do not link `doctest` as a library since it is header-only. Simply include the header in your test files.
+
+4. **Build and Test**:
+   - Use the following commands to build and test the project on Windows with GNU C++ 13.1.0:
+     ```bash
+     mkdir build && cd build
+     cmake -G "MinGW Makefiles" -DCMAKE_CXX_COMPILER=g++-13 ..
+     mingw32-make
+     ctest
+     ```
+   - Ensure that the `PipelineLib` shared library is properly set up in `CMakeLists.txt` and linked to the test targets.
+
+5. **Common Issues and Fixes**:
+   - **Duplicate Definitions**: Ensure that `thread_safe_queue.hpp` is included only once in each translation unit to avoid duplicate definitions.
+   - **Unresolved References**: Verify that all source files are added to the `PipelineLib` target in `CMakeLists.txt`.
+   - **Header-Only Libraries**: Remember that `doctest` is header-only and does not require linking.
+
 
 ### Specifications
 
